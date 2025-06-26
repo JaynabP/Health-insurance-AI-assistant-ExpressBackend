@@ -1,51 +1,144 @@
-🏢 Health Insurance AI Assistant — Express Backend
-A robust Node.js + Express backend that manages authentication, user profiles, and fitness data ingestion for the AI-powered insurance platform. This service acts as the “gateway” to the GenAI and ML microservices, ensuring secure, scalable, and reliable data flow.
+# 🏢 Health Insurance AI Assistant — ExpressBackend
 
-🌟 Features
-OAuth2 Authentication: (Mocked Google Fit, swappable for Samsung Health/Fitbit)
+A robust, scalable Node.js + Express backend that powers authentication, user profile management, and fitness data integration for the Health Insurance AI Assistant platform. This service acts as the secure gateway between the user-facing frontends, the GenAI FastAPI conversational engine, and all ML-driven microservices.
 
-User Profiles: CRUD operations with MongoDB.
+## ✨ Features
 
-Fitness Data Sync: Ingests and enriches real-time health metrics.
+- **OAuth2 Authentication**  
+  Secure user authentication (mocked Google Fit, easily swappable for Samsung Health/Fitbit).
 
-Proxy Layer: Securely forwards requests to GenAI FastAPI and ML endpoints.
+- **User Profile Management**  
+  CRUD operations for user data and health profiles, persisted in MongoDB.
 
-JWT Auth: Stateless, scalable security.
+- **Fitness Data Ingestion**  
+  Sync and store real-time fitness metrics, ready for ML scoring and insurance personalization.
 
-🏗️ Tech Stack
-Express 5 + TypeScript
+- **Proxy Layer**  
+  Securely forwards enriched requests to the GenAI FastAPI and ML endpoints.
 
-MongoDB (via Mongoose)
+- **JWT-based Authorization**  
+  Stateless, scalable security for all protected routes.
 
-Zod for schema validation
+- **Production-Ready Logging & Error Handling**  
+  Winston-powered logs and robust error middleware.
 
-Winston logging, Axios for HTTP
+## 🏗️ Architecture
 
-🚦 API Endpoints
-Method	Path	Description
-GET	/status	Service health check
-POST	/auth/signup	Register new user
-POST	/auth/login	Obtain JWT
-GET	/fitness/sync	Sync (mocked) fitness data
-POST	/genai/chat	Proxy chat to FastAPI backend
-⚡ Quickstart
-bash
-git clone https://github.com/JaynabP/Health-insurance-AI-assistant-ExpressBackend.git
+```mermaid
+graph TD
+  A[Frontend (Web/Mobile)] -->|REST API| B(ExpressBackend)
+  B -->|OAuth, JWT| C[MongoDB]
+  B -->|Proxy| D[GenAI FastAPI]
+  B -->|Proxy| E[ML Microservices]
+  D --> F[OpenAI / LLMs]
+  E --> G[Disease Risk, PED, OPD Models]
+```
+
+- **Frontend**: Next.js, React Native
+- **Backend**: This Express service
+- **GenAI FastAPI**: Conversational & orchestration layer
+- **ML Microservices**: Health risk scoring, recommendations
+
+## 📚 API Endpoints
+
+| Method | Path               | Description                          | Auth Required |
+|--------|--------------------|--------------------------------------|--------------|
+| GET    | `/status`          | Health check                         | No           |
+| POST   | `/auth/signup`     | Register new user                    | No           |
+| POST   | `/auth/login`      | Obtain JWT token                     | No           |
+| GET    | `/fitness/sync`    | Sync (mocked) fitness data           | Yes          |
+| GET    | `/profile`         | Get user profile                     | Yes          |
+| PUT    | `/profile`         | Update user profile                  | Yes          |
+| POST   | `/genai/chat`      | Proxy chat to GenAI FastAPI backend  | Yes          |
+
+## 🛠️ Tech Stack
+
+- **Node.js** & **Express 5**
+- **TypeScript** for type safety
+- **MongoDB** (Mongoose ODM)
+- **Zod** for schema validation
+- **Winston** for logging
+- **Axios** for HTTP requests
+
+## ⚡ Getting Started
+
+Clone the repository:
+
+```bash
+git clone https://github.com/jaynabp/Health-insurance-AI-assistant-ExpressBackend.git
 cd Health-insurance-AI-assistant-ExpressBackend
+```
+
+Install dependencies:
+
+```bash
 npm ci
-cp .env.example .env  # Set MONGO_URI, JWT_SECRET, GENAI_BASE_URL
+```
+
+Set up environment variables:
+
+```bash
+cp .env.example .env
+# Fill in MONGO_URI, JWT_SECRET, GENAI_BASE_URL, etc.
+```
+
+Run the development server:
+
+```bash
 npm run dev
-🗂️ Folder Structure
-text
+```
+
+## 🗂️ Project Structure
+
+```
 src/
- ├── routes/
- ├── controllers/
- ├── models/
- ├── middleware/
- └── index.ts
-🛠️ Deployment
-bash
+ ├── routes/         # API route definitions
+ ├── controllers/    # Request handlers
+ ├── models/         # Mongoose schemas
+ ├── middleware/     # Auth, error handlers, logging
+ ├── services/       # External API and ML service clients
+ └── index.ts        # App entrypoint
+```
+
+## ⚙️ Configuration
+
+All sensitive configuration is managed via environment variables:
+
+| Variable         | Purpose                               |
+|------------------|---------------------------------------|
+| `MONGO_URI`      | MongoDB connection string             |
+| `JWT_SECRET`     | Secret for JWT signing                |
+| `GENAI_BASE_URL` | URL of GenAI FastAPI backend          |
+| `PORT`           | Server port (default: 4000)           |
+
+## 🚀 Deployment
+
+**Docker:**
+
+```bash
 docker build -t express-backend .
 docker run -p 4000:4000 --env-file .env express-backend
-📄 License
-MIT — Contributions and feedback welcome!
+```
+
+**Production Tips:**
+
+- Use a managed MongoDB service for reliability.
+- Set strong JWT secrets and rotate regularly.
+- Monitor with tools like PM2 or Docker Compose.
+
+## 🤝 Contributing
+
+Contributions, bug reports, and feature requests are welcome!  
+Please open an issue or submit a pull request.
+
+## 📄 License
+
+MIT License © 2025 [jaynabp](https://github.com/jaynabp)
+
+> **Empowering a new era of personalized, preventive, and gamified health insurance — seamlessly connecting your fitness journey to real-world insurance benefits.**
+
+**Next:**  
+Ask for the README for the FastAPI (GenAI) repo or the frontend (MedicalInsurance) repo!
+
+[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/63197922/45ce9654-0569-436f-8a8f-66efbc53bc2c/Innovision_FinalDemo-1.pdf
+[2] https://pplx-res.cloudinary.com/image/private/user_uploads/63197922/4bdc6825-6e60-462d-a3a5-86fd2532fbee/Screenshot-2025-06-26-at-3.50.52-PM.jpg
