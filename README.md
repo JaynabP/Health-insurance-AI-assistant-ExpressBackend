@@ -24,16 +24,6 @@ A robust, scalable Node.js + Express backend that powers authentication, user pr
 
 ## 🏗️ Architecture
 
-```mermaid
-graph TD
-  A[Frontend (Web/Mobile)] -->|REST API| B(ExpressBackend)
-  B -->|OAuth, JWT| C[MongoDB]
-  B -->|Proxy| D[GenAI FastAPI]
-  B -->|Proxy| E[ML Microservices]
-  D --> F[OpenAI / LLMs]
-  E --> G[Disease Risk, PED, OPD Models]
-```
-
 - **Frontend**: Next.js, React Native
 - **Backend**: This Express service
 - **GenAI FastAPI**: Conversational & orchestration layer
@@ -137,8 +127,3 @@ MIT License © 2025 [jaynabp](https://github.com/jaynabp)
 
 > **Empowering a new era of personalized, preventive, and gamified health insurance — seamlessly connecting your fitness journey to real-world insurance benefits.**
 
-**Next:**  
-Ask for the README for the FastAPI (GenAI) repo or the frontend (MedicalInsurance) repo!
-
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/63197922/45ce9654-0569-436f-8a8f-66efbc53bc2c/Innovision_FinalDemo-1.pdf
-[2] https://pplx-res.cloudinary.com/image/private/user_uploads/63197922/4bdc6825-6e60-462d-a3a5-86fd2532fbee/Screenshot-2025-06-26-at-3.50.52-PM.jpg
